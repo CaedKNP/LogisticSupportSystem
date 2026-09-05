@@ -1,4 +1,5 @@
 using RoutingService.Providers;
+using RoutingService.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,6 +10,8 @@ builder.Services.AddHttpClient<IRoutingProvider, OsrmRoutingProvider>(client =>
 {
     client.BaseAddress = new Uri("https://router.project-osrm.org");
 });
+
+builder.Services.AddScoped<IRouteService, RouteService>();
 
 var app = builder.Build();
 
