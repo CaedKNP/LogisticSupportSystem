@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using RoutingService.Domain;
 using RoutingService.Services;
+using Route = RoutingService.Domain.Route;
 
 namespace RoutingService.Controllers;
 
