@@ -1,5 +1,6 @@
 using RoutingService.Providers;
 using RoutingService.Services;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,10 +9,20 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddOpenApi();
 builder.Services.AddHttpClient<IRoutingProvider, OsrmRoutingProvider>(client =>
 {
-    client.BaseAddress = new Uri("https://router.project-osrm.org");
+    client.BaseAddress = new Uri("http://router.project-osrm.org");
+    client.DefaultRequestHeaders.UserAgent.ParseAdd(
+        "LogisticSupportSystem-RoutingService/1.0");
+});
+
+builder.Host.UseSerilog((context, configuration) => 
+{ 
+    configuration .MinimumLevel.Information() .WriteTo.Console(); 
 });
 
 builder.Services.AddScoped<IRouteService, RouteService>();
+
+// controllers
+builder.Services.AddControllers();
 
 var app = builder.Build();
 
@@ -20,7 +31,7 @@ if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
 }
+app.MapControllers();
 
-app.UseHttpsRedirection();
 
 app.Run();

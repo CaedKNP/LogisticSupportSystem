@@ -1,3 +1,4 @@
+using System.Globalization;
 using System.Net.Http.Json;
 using RoutingService.Domain;
 using Route = RoutingService.Domain.Route;
@@ -26,7 +27,9 @@ public class OsrmRoutingProvider : IRoutingProvider
     {
         var coordinates = string.Join(
             ";",
-            locations.Select(x => $"{x.Longitude},{x.Latitude}")
+            locations.Select(x =>
+                $"{x.Longitude.ToString(CultureInfo.InvariantCulture)}," +
+                $"{x.Latitude.ToString(CultureInfo.InvariantCulture)}")
         );
 
         var response = await _httpClient.GetFromJsonAsync<OsrmResponse>(

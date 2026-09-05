@@ -14,10 +14,12 @@ public interface IRouteService
 public sealed class RouteService : IRouteService
 {
     private readonly IRoutingProvider _routingProvider;
+    private readonly ILogger<RouteService> _logger;
 
-    public RouteService(IRoutingProvider routingProvider)
+    public RouteService(IRoutingProvider routingProvider, ILogger<RouteService> logger)
     {
         _routingProvider = routingProvider;
+        _logger = logger;
     }
 
     public async Task<Route> CalculateRouteAsync(
@@ -36,8 +38,14 @@ public sealed class RouteService : IRouteService
                 nameof(locations));
         }
 
-        return await _routingProvider.CalculateRouteAsync(
-            locations,
-            cancellationToken);
+        _logger.LogInformation( "Calculating route for {LocationCount} locations", locations.Count); 
+
+        var route = await _routingProvider.CalculateRouteAsync( locations, cancellationToken);
+
+        _logger.LogInformation( "Route calculated successfully. Distance: {DistanceMeters} m, Duration: {DurationSeconds} seconds", 
+            route.DistanceMeters, 
+            route.DurationSeconds); 
+        
+        return route;
     }
 }
