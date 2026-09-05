@@ -1,0 +1,18 @@
+services:
+
+  routing-service:
+    build:
+      context: ./services/RoutingService
+    container_name: routing-service
+    restart: unless-stopped
+
+    networks:
+      - network
+
+    environment:
+      ERPNext__BaseUrl: http://erpnext
+
+networks:
+  network:
+    name: network
+    driver: bridge
