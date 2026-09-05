@@ -6,6 +6,11 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "config": {
+    "commitizen": {
+      "path": "cz-git"
+    }
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/CaedKNP/LogisticSupportSystem.git"
@@ -20,6 +25,6 @@
   "homepage": "https://github.com/CaedKNP/LogisticSupportSystem#readme",
   "devDependencies": {
     "commitizen": "^4.3.2",
-    "cz-conventional-changelog": "^3.3.0"
+    "cz-git": "^1.14.0"
   }
 }
