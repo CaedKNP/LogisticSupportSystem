@@ -11,6 +11,12 @@
       "path": "cz-git"
     }
   },
+  "cz-git": {
+    "scopes": [
+      "routing",
+      "configuration"
+    ]
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/CaedKNP/LogisticSupportSystem.git"
